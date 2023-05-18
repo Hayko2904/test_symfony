@@ -9,6 +9,7 @@ use App\Entity\Product;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductController extends AbstractController
 {
@@ -18,7 +19,13 @@ class ProductController extends AbstractController
         $product = new Product();
 
         $form = $this->createFormBuilder($product)
-            ->add('name', TextType::class)
+        ->add('name', ChoiceType::class, [
+                'choices'  => [
+                    'Maybe' => null,
+                    'Yes' => true,
+                    'No' => false,
+                ],
+            ])
             ->add('price', DateType::class)
             ->add('save', SubmitType::class, ['label' => 'Create Task'])
             ->getForm();
