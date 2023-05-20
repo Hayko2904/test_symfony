@@ -39,20 +39,21 @@ class CountryRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Country[] Returns an array of Country objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Country[] Returns an array of Country objects
+     */
+    public function findByTaxCodeField($value): ?array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.tax_percentage')
+            ->from("\App\Entity\Country", 'country')
+            ->where('country.tax_code=:taxCode')
+            ->setParameter('taxCode', $value)  
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Country
 //    {
