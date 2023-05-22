@@ -14,7 +14,8 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[Assert\NotBlank\NotNull]
+    private ?string $name;
 
     #[ORM\Column]
     private ?int $price = null;

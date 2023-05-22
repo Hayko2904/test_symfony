@@ -54,7 +54,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/get-price', name: 'get_price')]
-    public function getPrice(Request $request)
+    public function getPrice(Request $request): Response
     {
         $requestData = $request->request->all();
 
@@ -68,8 +68,13 @@ class ProductController extends AbstractController
                  Response::HTTP_OK
             );
         }
-        
 
+        $price = $this->productRepository->findOneByIdField((int)$requestData['form']['name'])->getPrice();
+
+        return new Response(
+                $price + $percentage['tax_percentage'], 
+                Response::HTTP_OK
+            );
 
     }
 }
